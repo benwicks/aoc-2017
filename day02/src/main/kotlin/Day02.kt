@@ -1,9 +1,9 @@
 import Day02.PUZZLE_INPUT
 import Day02.calculateSpreadsheetChecksum
-import Day02.maxMinusMin
 import Day02.evenlyDivisibleNumbersQuotient
+import Day02.maxMinusMin
 
-fun main(args: Array<String>) {
+internal fun main(args: Array<String>) {
     println("Day 02 Pt. One Answer:\t" + calculateSpreadsheetChecksum(PUZZLE_INPUT, maxMinusMin))
     println("Day 02 Pt. Two Answer:\t" + calculateSpreadsheetChecksum(PUZZLE_INPUT, evenlyDivisibleNumbersQuotient))
 }
@@ -11,7 +11,7 @@ fun main(args: Array<String>) {
 /**
  * See <a href="https://adventofcode.com/2017/day/2">Day 2</a>
  */
-object Day02 {
+internal object Day02 {
 
     internal val PUZZLE_INPUT =
             "5048\t177\t5280\t5058\t4504\t3805\t5735\t220\t4362\t1809\t1521\t230\t772\t1088\t178\t1794\n" +

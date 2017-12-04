@@ -4,18 +4,18 @@ import kotlin.math.absoluteValue
 import kotlin.math.ceil
 import kotlin.math.sqrt
 
-const val PUZZLE_INPUT = 347991
+internal const val PUZZLE_INPUT = 347991
 
-fun main(args: Array<String>) {
+internal fun main(args: Array<String>) {
     println("Day 03 Pt. One Answer:\t" + shortestDistanceToSpiralSquare(PUZZLE_INPUT))
     println("Day 03 Pt. Two Answer:\t" + getFirstValueWrittenLargerThan(PUZZLE_INPUT))
 }
 
-fun shortestDistanceToSpiralSquare(square: Int) = getCoordinates(square).let {
+internal fun shortestDistanceToSpiralSquare(square: Int) = getCoordinates(square).let {
     it.first.absoluteValue + it.second.absoluteValue
 }
 
-fun getCoordinates(square: Int): Pair<Int, Int> {
+internal fun getCoordinates(square: Int): Pair<Int, Int> {
     val layer = spiralLayer(square)
     val bottomRightSquare = bottomRightSquareInLayer(layer)
     val bottomRightCoordinates = bottomRightCoordinatesForLayer(layer)
@@ -46,7 +46,7 @@ fun getCoordinates(square: Int): Pair<Int, Int> {
     }
 }
 
-fun spiralLayer(square: Int): Int {
+internal fun spiralLayer(square: Int): Int {
     var squareRootOfInputSquare = ceil(sqrt(square.toDouble())).toInt()
     if (squareRootOfInputSquare % 2 == 0) {
         squareRootOfInputSquare++
@@ -54,15 +54,15 @@ fun spiralLayer(square: Int): Int {
     return squareRootOfInputSquare / 2
 }
 
-fun squaresInLayer(layer: Int) = bottomRightSquareInLayer(layer) - bottomRightSquareInLayer(layer - 1)
+internal fun squaresInLayer(layer: Int) = bottomRightSquareInLayer(layer) - bottomRightSquareInLayer(layer - 1)
 
-fun bottomRightCoordinatesForLayer(layer: Int) = layer.let { Pair(it, -1 * it) }
+internal fun bottomRightCoordinatesForLayer(layer: Int) = layer.let { Pair(it, -1 * it) }
 
-fun stepsPerSide(bottomRightSquare: Int) = sqrt(bottomRightSquare.toDouble()).toInt() - 1
+internal fun stepsPerSide(bottomRightSquare: Int) = sqrt(bottomRightSquare.toDouble()).toInt() - 1
 
-fun bottomRightSquareInLayer(layer: Int) = pow((2.0 * layer) + 1, 2.0).toInt()
+internal fun bottomRightSquareInLayer(layer: Int) = pow((2.0 * layer) + 1, 2.0).toInt()
 
-fun getFirstValueWrittenLargerThan(input: Int): Int {
+internal fun getFirstValueWrittenLargerThan(input: Int): Int {
     val spiralWalker = SpiralWalker(Pair(0, 0), 1)
     while (spiralWalker.currentValue <= input) {
         spiralWalker.writeNextValue()

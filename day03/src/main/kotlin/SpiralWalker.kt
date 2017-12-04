@@ -49,7 +49,7 @@ internal class SpiralWalker(initialPoint: Pair<Int, Int>, initialValue: Int) {
             Pair(point.first - 1, point.second + 1)
     )
 
-    sealed class Direction {
+    internal sealed class Direction {
         abstract val turn: Direction
 
         object Right : Direction() {

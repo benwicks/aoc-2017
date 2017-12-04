@@ -1,6 +1,6 @@
 import Day02.PUZZLE_INPUT
-import Day02.maxMinusMin
 import Day02.evenlyDivisibleNumbersQuotient
+import Day02.maxMinusMin
 import org.junit.Assert.*
 import org.junit.Test
 

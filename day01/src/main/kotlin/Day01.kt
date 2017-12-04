@@ -2,7 +2,7 @@ import Day01.PUZZLE_INPUT
 import Day01.sumAllDigitsThatMatchHalfwayAroundDigitInList
 import Day01.sumAllDigitsThatMatchNextDigitInList
 
-fun main(args: Array<String>) {
+internal fun main(args: Array<String>) {
     println("Day 01 Pt. One Answer:\t" + sumAllDigitsThatMatchNextDigitInList(PUZZLE_INPUT))
     println("Day 01 Pt. Two Answer:\t" + sumAllDigitsThatMatchHalfwayAroundDigitInList(PUZZLE_INPUT))
 }
@@ -10,7 +10,7 @@ fun main(args: Array<String>) {
 /**
  * See <a href="https://adventofcode.com/2017/day/1">Day 1</a>
  */
-object Day01 {
+internal object Day01 {
 
     internal val PUZZLE_INPUT = "237369991482346124663395286354672985457326865748533412179778188397835279584149971999" +
             "79851227942926872717175546141897455853824642998674753241784615752652323893135189854827954945669448843343" +

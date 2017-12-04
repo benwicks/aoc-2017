@@ -1,15 +1,7 @@
 import org.apache.commons.codec.binary.Hex
 import org.apache.commons.codec.digest.DigestUtils
-import java.util.*
-
-internal fun String.readDigitAtIndex(index: Int) = this[index].toDigit()
-
-/**
- * @throws IllegalArgumentException if this is not a valid digit.
- */
-internal fun Char.toDigit() = (toInt() - 48).apply {
-    require((0..9).contains(this)) { "Not a digit: ${this@toDigit}" }
-}
+import java.util.ArrayList
+import java.util.HashMap
 
 inline fun <T, R> Iterable<T>.scan(initial: R, operation: (R, T) -> R): Iterable<R> {
     val results = mutableListOf(initial)
