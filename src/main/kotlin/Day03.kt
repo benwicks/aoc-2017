@@ -4,8 +4,11 @@ import kotlin.math.absoluteValue
 import kotlin.math.ceil
 import kotlin.math.sqrt
 
+const val PUZZLE_INPUT = 347991
+
 fun main(args: Array<String>) {
-    println("Day 03 Pt. One Answer:\t" + shortestDistanceToSpiralNumber(347991))
+    println("Day 03 Pt. One Answer:\t" + shortestDistanceToSpiralNumber(PUZZLE_INPUT))
+    println("Day 03 Pt. Two Answer:\t" + getFirstValueWrittenLargerThan(PUZZLE_INPUT))
 }
 
 fun shortestDistanceToSpiralNumber(number: Int) = getCoordinates(number).let {
@@ -58,4 +61,12 @@ fun bottomRightCoordinatesForLayer(layer: Int) = layer.let { Pair(it, -1 * it) }
 fun stepsPerSide(bottomRightNumber: Int) = sqrt(bottomRightNumber.toDouble()).toInt() - 1
 
 fun bottomRightNumberInLayer(layer: Int) = pow((2.0 * layer) + 1, 2.0).toInt()
+
+fun getFirstValueWrittenLargerThan(input: Int): Int {
+    val spiralWalker = SpiralWalker(Pair(0, 0), 1)
+    if (spiralWalker.currentValue <= input) {
+        spiralWalker.writeNextValue()
+    }
+    return spiralWalker.currentValue
+}
 
