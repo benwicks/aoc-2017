@@ -1,0 +1,3 @@
+internal object Day05 {
+
+}
