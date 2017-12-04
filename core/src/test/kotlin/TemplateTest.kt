@@ -1,5 +1,5 @@
-import org.junit.Assert.assertEquals
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class TemplateTest {
 
@@ -18,5 +18,4 @@ class TemplateTest {
   fun chunked() {
     assertEquals(listOf(listOf(1, 2, 3), listOf(4)), listOf(1, 2, 3, 4).chunked(3))
   }
-
 }
