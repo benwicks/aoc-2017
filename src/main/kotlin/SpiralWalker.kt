@@ -1,23 +1,12 @@
-import kotlin.math.abs
-
-fun main(args: Array<String>) {
-    val spiralWalker = SpiralWalker(Pair(0, 0), 1)
-    for (i in 0..15) {
-        println("spiralWalker.currentPoint = ${spiralWalker.currentPoint}")
-        println("spiralWalker.currentValue = ${spiralWalker.currentValue}\n")
-        spiralWalker.writeNextValue()
-    }
-}
-
 internal class SpiralWalker(initialPoint: Pair<Int, Int>, initialValue: Int) {
 
+    var currentDirection: Direction = Direction.Down
     var currentValue = initialValue
         private set
 
     private val grid = mutableMapOf<Pair<Int, Int>, Int>()
 
-    var currentPoint: Pair<Int, Int> = initialPoint // todo make private after debugging
-        private set
+    private var currentPoint: Pair<Int, Int> = initialPoint
 
     init {
         grid.put(initialPoint, initialValue)
@@ -29,41 +18,54 @@ internal class SpiralWalker(initialPoint: Pair<Int, Int>, initialValue: Int) {
         grid[currentPoint] = currentValue
     }
 
-    private fun nextPointInSpiralAfter(currentPoint: Pair<Int, Int>) = when {
-        nextPointIsRight(currentPoint) -> Pair(currentPoint.first + 1, currentPoint.second)
-        nextPointIsUp(currentPoint) -> Pair(currentPoint.first, currentPoint.second + 1)
-        nextPointIsLeft(currentPoint) -> Pair(currentPoint.first - 1, currentPoint.second)
-        else -> Pair(currentPoint.first, currentPoint.second - 1)
+    private fun nextPointInSpiralAfter(currentPoint: Pair<Int, Int>) = currentPoint.step(currentDirection.turn).let {
+        if (it in grid) {
+            currentPoint.step(currentDirection)
+        } else {
+            currentDirection = currentDirection.turn
+            it
+        }
     }
 
-    private fun nextPointIsRight(currentPoint: Pair<Int, Int>): Boolean {
-        return currentPoint == Pair(0, 0) ||
-                (currentPoint.second < 0 &&
-                        currentPoint.first < abs(currentPoint.second))
-    }
-
-    private fun nextPointIsUp(currentPoint: Pair<Int, Int>): Boolean {
-        return currentPoint.first > 0 &&
-                currentPoint.first > abs(currentPoint.second)
-    }
-
-    private fun nextPointIsLeft(currentPoint: Pair<Int, Int>): Boolean {
-        return currentPoint.second > 0 &&
-                (currentPoint.first * -1) != currentPoint.second
+    private fun Pair<Int, Int>.step(direction: Direction) = when (direction) {
+        is Direction.Right -> Pair(first + 1, second)
+        is Direction.Up -> Pair(first, second + 1)
+        is Direction.Left -> Pair(first - 1, second)
+        is Direction.Down -> Pair(first, second - 1)
     }
 
     private fun getSumOfAdjacentPoints(point: Pair<Int, Int>) = getAdjacentPoints(point)
-            .filter { grid.containsKey(it) }
+            .filter { it in grid }
             .sumBy { grid[it]!! }
 
     private fun getAdjacentPoints(point: Pair<Int, Int>) = listOf(
-            Pair(point.first, point.second + 1),
+            point.step(Direction.Up),
             Pair(point.first + 1, point.second + 1),
-            Pair(point.first + 1, point.second),
+            point.step(Direction.Right),
             Pair(point.first + 1, point.second - 1),
-            Pair(point.first, point.second - 1),
+            point.step(Direction.Down),
             Pair(point.first - 1, point.second - 1),
-            Pair(point.first - 1, point.second),
+            point.step(Direction.Left),
             Pair(point.first - 1, point.second + 1)
     )
+
+    sealed class Direction {
+        abstract val turn: Direction
+
+        object Right : Direction() {
+            override val turn = Up
+        }
+
+        object Up : Direction() {
+            override val turn = Left
+        }
+
+        object Left : Direction() {
+            override val turn = Down
+        }
+
+        object Down : Direction() {
+            override val turn = Right
+        }
+    }
 }
