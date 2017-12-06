@@ -3,6 +3,10 @@ import org.apache.commons.codec.digest.DigestUtils
 import java.util.ArrayList
 import java.util.HashMap
 
+fun String.splitIntoListOfIntegers() = splitAtWhitespace().map { Integer.parseInt(it) }
+
+fun String.splitAtWhitespace() = split("\\s+".toRegex())
+
 inline fun <T, R> Iterable<T>.scan(initial: R, operation: (R, T) -> R): Iterable<R> {
     val results = mutableListOf(initial)
     for (element in this) results += operation(results.last(), element)

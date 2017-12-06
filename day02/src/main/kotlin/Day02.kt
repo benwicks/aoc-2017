@@ -63,6 +63,6 @@ internal object Day02 {
     }
 
     internal fun calculateSpreadsheetChecksum(input: String, summationFunction: (List<Int>) -> Int) = input.split("\n")
-            .map { line -> line.split("\\s+".toRegex()).map { Integer.parseInt(it) } }
+            .map(String::splitIntoListOfIntegers)
             .sumBy(summationFunction)
 }

@@ -11,6 +11,6 @@ internal object Day04 {
             .size
 
     fun <T> isValidPassphrase(passphrase: String, distinctWordSelector: (String) -> T)
-            = passphrase.split("\\s+".toRegex())
+            = passphrase.splitAtWhitespace()
             .let { it.distinctBy(distinctWordSelector).size == it.size }
 }
