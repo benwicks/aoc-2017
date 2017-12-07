@@ -3,6 +3,10 @@ import org.apache.commons.codec.digest.DigestUtils
 import java.util.ArrayList
 import java.util.HashMap
 
+fun String.splitAtNewlines() = split("\n")
+
+fun String.splitAtCommas() = split(",")
+
 fun String.splitIntoListOfIntegers() = splitAtWhitespace().map { Integer.parseInt(it) }
 
 fun String.splitAtWhitespace() = split("\\s+".toRegex())
